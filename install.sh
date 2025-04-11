@@ -1013,7 +1013,6 @@ function instal() {
     restart_system
 }
 
-instal
 echo ""
 history -c
 rm -rf /root/menu
