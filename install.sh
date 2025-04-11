@@ -718,7 +718,7 @@ cd
 rm -rf wondershaper
 echo > /home/limit
 apt install msmtp-mta ca-certificates bsd-mailx -y
-cat<<EOF>>/etc/msmtprc
+cat<<EOF >/etc/msmtprc
 defaults
 tls on
 tls_starttls on
@@ -739,30 +739,6 @@ print_success "Backup Server"
 }
 
 clear
-function ins_swab(){
-clear
-print_install "Memasang Swap 1 G"
-gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
-    gotop_link="https://github.com/xxxserxxx/gotop/releases/download/v$gotop_latest/gotop_v"$gotop_latest"_linux_amd64.deb"
-    curl -sL "$gotop_link" -o /tmp/gotop.deb
-    dpkg -i /tmp/gotop.deb >/dev/null 2>&1
-    
-        # > Buat swap sebesar 1G
-    dd if=/dev/zero of=/swapfile bs=1024 count=1048576
-    mkswap /swapfile
-    chown root:root /swapfile
-    chmod 0600 /swapfile >/dev/null 2>&1
-    swapon /swapfile >/dev/null 2>&1
-    sed -i '$ i\/swapfile      swap swap   defaults    0 0' /etc/fstab
-
-    # > Singkronisasi jam
-    chronyd -q 'server 0.id.pool.ntp.org iburst'
-    chronyc sourcestats -v
-    chronyc tracking -v
-    
-    wget ${REPO}limit/bbr.sh &&  chmod +x bbr.sh && ./bbr.sh
-print_success "Swap 1 G"
-}
 
 function ins_Fail2ban(){
 clear
@@ -771,6 +747,14 @@ apt -y install fail2ban > /dev/null 2>&1
 sudo systemctl enable --now fail2ban
 /etc/init.d/fail2ban restart
 /etc/init.d/fail2ban status
+    # > Singkronisasi jam
+    chronyd -q 'server 0.id.pool.ntp.org iburst'
+    chronyc sourcestats -v
+    chronyc tracking -v
+gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
+    gotop_link="https://github.com/xxxserxxx/gotop/releases/download/v$gotop_latest/gotop_v"$gotop_latest"_linux_amd64.deb"
+    curl -sL "$gotop_link" -o /tmp/gotop.deb
+    dpkg -i /tmp/gotop.deb >/dev/null 2>&1
 
 # Instal DDOS Flate
 if [ -d '/usr/local/ddos' ]; then
@@ -938,7 +922,6 @@ EOF
         TIME_DATE="AM"
     fi
 print_success "Menu Packet"
-}
 
 # Restart layanan after install
 function enable_services(){
