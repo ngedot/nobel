@@ -90,12 +90,12 @@ clear
 #########################
 # USERNAME
 rm -f /usr/bin/user
-username=$(curl -sS https://raw.githubusercontent.com/ngedot/botol/main/Aktivasi | grep $MYIP | awk '{print $2}')
+username=$(curl -sS https://raw.githubusercontent.com/ngedot/nobel/main/Aktivasi | grep $MYIP | awk '{print $2}')
 echo "$username" >/usr/bin/user
 # validity
 rm -f /usr/bin/e
 today=`date -d "0 days" +"%Y-%m-%d"`
-valid=$(curl -sS https://raw.githubusercontent.com/ngedot/botol/main/Aktivasi | grep $MYIP | awk '{print $3}')
+valid=$(curl -sS https://raw.githubusercontent.com/ngedot/nobel/main/Aktivasi | grep $MYIP | awk '{print $3}')
 echo "$valid" >/usr/bin/e
 # DETAIL ORDER
 username=$(cat /usr/bin/user)
@@ -134,7 +134,7 @@ fi
 echo -e "\e[32mloading...\e[0m"
 clear
 # REPO    
-    REPO="https://raw.githubusercontent.com/ngedot/botol/master/"
+    REPO="https://raw.githubusercontent.com/ngedot/nobel/master/"
 
 ####
 start=$(date +%s)
@@ -178,7 +178,7 @@ function is_root() {
 # Buat direktori xray
 print_install "Membuat direktori xray"
     mkdir -p /etc/xray
-    wget https://raw.githubusercontent.com/ngedot/botol/main/Aktivasi -O /etc/xray/premium
+    wget https://raw.githubusercontent.com/ngedot/nobel/main/Aktivasi -O /etc/xray/premium
     curl -s https://ipinfo.io/ip/?token=22bdf1094ea479 > /etc/xray/ipvps
     curl -s ipinfo.io/city?token=22bdf1094ea479 >>/etc/xray/city
     curl -s ipinfo.io/timezone?token=22bdf1094ea479 >>/etc/xray/timezone
@@ -321,8 +321,8 @@ clear
 clear
 #GANTI PASSWORD DEFAULT
 function restart_system() {
-    USRSC=$(curl -sS https://raw.githubusercontent.com/ngedot/botol/main/Aktivasi | grep $MYIP | awk '{print $2}')
-    EXPSC=$(curl -sS https://raw.githubusercontent.com/ngedot/botol/main/Aktivasi | grep $MYIP | awk '{print $3}')
+    USRSC=$(curl -sS https://raw.githubusercontent.com/ngedot/nobel/main/Aktivasi | grep $MYIP | awk '{print $2}')
+    EXPSC=$(curl -sS https://raw.githubusercontent.com/ngedot/nobel/main/Aktivasi | grep $MYIP | awk '{print $3}')
     DATEVPS=$(date +'%d/%m/%Y')
     ISP=$(cat /etc/xray/isp)
     TIMEZONE=$(printf '%(%H:%M:%S)T')
@@ -562,7 +562,7 @@ print_success "Password SSH"
 function udp_mini(){
 clear
 print_install "Memasang Service Limit Quota"
-wget raw.githubusercontent.com/ngedot/botol/master/limit/limit.sh && chmod +x limit.sh && ./limit.sh
+wget raw.githubusercontent.com/ngedot/nobel/master/limit/limit.sh && chmod +x limit.sh && ./limit.sh
 
 cd
 wget -q -O /usr/bin/limit-ip "${REPO}limit/limit-ip"
