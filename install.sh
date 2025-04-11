@@ -219,8 +219,8 @@ function first_setup() {
         echo "Setup Dependencies $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
         sudo apt update -y
         sudo apt-get install --no-install-recommends software-properties-common -y
-        sudo add-apt-repository ppa:vbernat/haproxy-2.0 -y
-        sudo apt-get -y install haproxy=2.0.\*
+        sudo add-apt-repository ppa:vbernat/haproxy-3.0 -y
+        sudo apt-get -y install haproxy=3.0.\*
     elif [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "debian" ]]; then
         echo "Setup Dependencies For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
         curl -s https://haproxy.debian.net/bernat.debian.org.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/haproxy.debian.net.gpg >/dev/null
