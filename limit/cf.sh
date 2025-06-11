@@ -2,9 +2,9 @@
 MYIP=$(wget -qO- icanhazip.com);
 apt install jq curl -y
 #read -p "Masukan Domain (contoh : Dragon)" domen
-DOMAIN=sshvpn.top
+DOMAIN=khusus.vip
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
-dns=${sub}.sshvpn.top
+dns=${sub}.khusus.vip
 CF_ID=erfancloudflare@gmail.com
 CF_KEY=d66bf10bead0f6f207257110f07aba66cc39b
 set -euo pipefail

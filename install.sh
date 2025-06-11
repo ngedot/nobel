@@ -75,7 +75,7 @@ print_install "Membuat direktori xray"
     curl -s ifconfig.me > /etc/xray/ipvps
     touch /etc/xray/domain
     mkdir -p /var/log/xray
-    chown www-data.www-data /var/log/xray
+    chown www-data:www-data /var/log/xray
     chmod +x /var/log/xray
     chown www-data:www-data /var/log/xray
     chmod 755 /var/log/xray
@@ -107,7 +107,6 @@ function first_setup(){
     os_id=$(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g')
     os_version=$(cat /etc/os-release | grep -w VERSION_CODENAME | head -n1 | sed 's/VERSION_CODENAME=//g' | sed 's/"//g')
     if [[ "$os_id" == "ubuntu" ]]; then
-        # Ubuntu: gunakan HAProxy versi terbaru dari repo resmi
         echo "Setup Dependencies for Ubuntu $os_version"
         sudo apt update -y
         apt install --no-install-recommends software-properties-common
@@ -131,7 +130,7 @@ function base_package() {
     clear
     ########
     print_install "Menginstall Packet Yang Dibutuhkan"
-    apt install zip pwgen openssl netcat netcat-openbsd socat cron bash-completion -y
+    apt install zip pwgen openssl netcat-openbsd socat cron bash-completion -y
     apt install figlet -y
     apt update -y
     apt upgrade -y
@@ -298,7 +297,7 @@ clear
     # install xray
     #echo -e "[ ${green}INFO$NC ] Downloading & Installing xray core"
     domainSock_dir="/run/xray";! [ -d $domainSock_dir ] && mkdir  $domainSock_dir
-    chown www-data.www-data $domainSock_dir
+    chown www-data:www-data $domainSock_dir
 
     # / / Ambil Xray Core Version Terbaru
 latest_version="$(curl -s https://api.github.com/repos/XTLS/Xray-core/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
@@ -611,9 +610,12 @@ gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases/la
 gotop_link="https://github.com/xxxserxxx/gotop/releases/download/v${gotop_latest}/gotop_v${gotop_latest}_linux_amd64.deb"
 curl -sL "$gotop_link" -o /tmp/gotop.deb
 sudo dpkg -i /tmp/gotop.deb >/dev/null 2>&1 || sudo apt install -f -y
-chronyd -q 'server 0.id.pool.ntp.org iburst'
-chronyc sourcestats -v
-chronyc tracking -v
+
+# Hapus perintah chronyd/chronyc jika tidak tersedia di noble
+# chronyd -q 'server 0.id.pool.ntp.org iburst'
+# chronyc sourcestats -v
+# chronyc tracking -v
+
 print_success "Gotop Installed"
 }
 
