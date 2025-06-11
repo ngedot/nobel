@@ -27,7 +27,7 @@ clear
 IP=$(curl -s ipinfo.io/ip)
 clear
 # REPO
-    REPO="https://raw.githubusercontent.com/ngedot/botol/master/"
+    REPO="https://raw.githubusercontent.com/ngedot/noble/master/"
 
 ####
 start=$(date +%s)
