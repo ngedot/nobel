@@ -5,8 +5,8 @@ apt install jq curl -y
 DOMAIN=sshvpn.top
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
 dns=${sub}.sshvpn.top
-CF_ID=""
-CF_KEY=""
+CF_ID=erfancloudflare@gmail.com
+CF_KEY=d66bf10bead0f6f207257110f07aba66cc39b
 set -euo pipefail
 IP=$(wget -qO- icanhazip.com);
 echo "Updating DNS for ${dns}..."
